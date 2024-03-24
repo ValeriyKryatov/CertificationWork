@@ -91,7 +91,7 @@ class FlightSetFilterServiceImplTest {
 
         List<Flight> result = flightSetFilterService.excludeFlightsWhereTotalTimeSpentOnGroundExceedsTwoHours(flightList);
 
-        Assertions.assertEquals(1, result.size());
+        Assertions.assertEquals(2, result.size());
         Assertions.assertEquals(1, result.get(0).getSegments().size());
         Assertions.assertEquals(ARRIVAL_DATE_TRUE, result.get(0).getSegments().get(0).getArrivalDate());
     }

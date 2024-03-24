@@ -1,6 +1,7 @@
 package com.gridnine.testing;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,8 @@ public class FlightSetFilterServiceImpl implements FlightSetFilterService {
                 .filter(flight -> flight
                         .getSegments()
                         .stream()
-                        .anyMatch(segment -> segment.getDepartureDate().isAfter(LocalDateTime.now())))
+                        .anyMatch(segment -> segment.getDepartureDate().isAfter(LocalDateTime.now())
+                                && segment.getArrivalDate().isAfter(LocalDateTime.now())))
                 .collect(Collectors.toList());
     }
 
@@ -36,18 +38,23 @@ public class FlightSetFilterServiceImpl implements FlightSetFilterService {
     @Override
     public List<Flight> excludeFlightsWhereTotalTimeSpentOnGroundExceedsTwoHours(List<Flight> flightBuilder) {
         return flightBuilder.stream()
-                .filter(flight -> {
-                    if (flight.getSegments().size() > 1) {
-                        for (int i = 0; i < flight.getSegments().size() - 1; ) {
-                            if (flight.getSegments().get(i + 1).getDepartureDate().getHour() - flight.getSegments().get(i).getArrivalDate().getHour() > 2) {
-                                return false;
-                            } else {
-                                i++;
-                            }
-                        }
-                    }
-                    return true;
-                })
+                .filter(flight -> checkingTheListOfSegments(flight.getSegments()))
                 .collect(Collectors.toList());
+    }
+
+    private static boolean checkingTheListOfSegments(List<Segment> segments) {
+        final long SECONDS_IN_HOUR = 7200;
+        if (segments.size() > 1) {
+            long sumHours = 0;
+            for (int i = segments.size() - 1; i > 0; i--) {
+                LocalDateTime dateTimeMax = segments.get(i).getDepartureDate();
+                Long endSeconds = dateTimeMax.toEpochSecond(ZoneOffset.UTC);
+                LocalDateTime dateTimeMin = segments.get(i - 1).getArrivalDate();
+                Long startSeconds = dateTimeMin.toEpochSecond(ZoneOffset.UTC);
+                sumHours = sumHours + (endSeconds - startSeconds);
+            }
+            return SECONDS_IN_HOUR > sumHours;
+        }
+        return true;
     }
 }
