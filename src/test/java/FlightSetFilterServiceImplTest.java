@@ -1,7 +1,7 @@
-import com.gridnine.testing.Flight;
-import com.gridnine.testing.FlightSetFilterService;
-import com.gridnine.testing.FlightSetFilterServiceImpl;
-import com.gridnine.testing.Segment;
+import com.gridnine.testing.entity.Flight;
+import com.gridnine.testing.service.FlightSetFilterService;
+import com.gridnine.testing.service.Impl.FlightSetFilterServiceImpl;
+import com.gridnine.testing.entity.Segment;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

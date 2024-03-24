@@ -1,5 +1,8 @@
 package com.gridnine.testing;
 
+import com.gridnine.testing.entity.Flight;
+import com.gridnine.testing.entity.Segment;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +25,7 @@ public class FlightBuilder {
                         threeDaysFromNow.plusHours(3), threeDaysFromNow.plusHours(5)),
                 // A flight departing in the past
                 // Перелет, осуществляемый в прошлом
-                createFlight(threeDaysFromNow.minusDays(6), threeDaysFromNow.minusHours(6)),
+                createFlight(threeDaysFromNow.minusDays(6), threeDaysFromNow),
                 // A flight that departs before it arrives
                 // Перелет, который осуществляется до прилета
                 createFlight(threeDaysFromNow, threeDaysFromNow.minusHours(6)),
@@ -34,7 +37,7 @@ public class FlightBuilder {
                 //Еще один перелет, где общее время, проведенное на земле, превышает 2 часа
                 createFlight(threeDaysFromNow, threeDaysFromNow.plusHours(2),
                         threeDaysFromNow.plusHours(3), threeDaysFromNow.plusHours(4),
-                        threeDaysFromNow.plusHours(4), threeDaysFromNow.plusHours(5)));
+                        threeDaysFromNow.plusHours(6), threeDaysFromNow.plusHours(7)));
     }
 
     private static Flight createFlight(final LocalDateTime... dates) {

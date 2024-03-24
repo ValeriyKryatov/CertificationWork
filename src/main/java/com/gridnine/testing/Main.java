@@ -1,5 +1,8 @@
 package com.gridnine.testing;
 
+import com.gridnine.testing.entity.Flight;
+import com.gridnine.testing.service.Impl.FlightSetFilterServiceImpl;
+
 import java.util.List;
 
 public class Main {

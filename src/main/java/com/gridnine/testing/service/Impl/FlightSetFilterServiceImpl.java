@@ -1,4 +1,8 @@
-package com.gridnine.testing;
+package com.gridnine.testing.service.Impl;
+
+import com.gridnine.testing.entity.Flight;
+import com.gridnine.testing.entity.Segment;
+import com.gridnine.testing.service.FlightSetFilterService;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

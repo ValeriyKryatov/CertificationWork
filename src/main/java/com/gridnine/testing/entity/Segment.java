@@ -1,4 +1,4 @@
-package com.gridnine.testing;
+package com.gridnine.testing.entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
